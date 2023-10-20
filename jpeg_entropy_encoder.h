@@ -10,4 +10,6 @@ int right(int);
 int down_left(int);
 int up_right(int);
 
+void lap_loop(int laps, int * working_index, int * index_counter, int function(int));
+
 #endif

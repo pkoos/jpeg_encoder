@@ -28,6 +28,7 @@ void zig_zag_coefficients(void) {
     int index_counter = 0;
     int working_index = 0;
     int lap = 0;
+    int increment = 1;
 
     // printf("lap: %d\n", lap);
     zig_zag_path[index_counter++] = working_index;
@@ -36,34 +37,26 @@ void zig_zag_coefficients(void) {
     /*
         Lap 1
     */
-   lap++;
-   // printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
-    for(int i = 0; i < lap; i++) {
-        working_index = down_left(working_index);
-        zig_zag_path[index_counter++] = working_index;
-        printf("%d: %d\n", index_counter, working_index);
-    }
+    lap_loop(lap, &working_index, &index_counter, down_left);
+
 
     /*
         Lap 2
     */
-   lap++;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = down(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
-    for(int i = 0; i < lap; i++) {
-        working_index = up_right(working_index);
-        zig_zag_path[index_counter++] = working_index;
-        printf("%d: %d\n", index_counter, working_index);
-    }
+    lap_loop(lap, &working_index, &index_counter, up_right);
 
     /*
         Lap 3
     */
-   lap++;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -76,7 +69,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 4
     */
-   lap++;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = down(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -89,7 +82,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 5
     */
-   lap++;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -102,7 +95,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 6
     */
-   lap++;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = down(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -115,7 +108,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 7
     */
-   lap++;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -125,10 +118,12 @@ void zig_zag_coefficients(void) {
         printf("%d: %d\n", index_counter, working_index);
     }
 
+    increment = -1;
+
     /*
         Lap 8
     */
-   lap--;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -141,7 +136,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 9
     */
-   lap--;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = down(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -154,7 +149,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 10
     */
-   lap--;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -167,7 +162,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 11
     */
-   lap--;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = down(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -180,7 +175,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 12
     */
-   lap--;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -193,7 +188,7 @@ void zig_zag_coefficients(void) {
     /*
         Lap 13
     */
-   lap--;// printf("lap: %d\n", lap);
+    lap+= increment;
     working_index = down(working_index);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
@@ -203,6 +198,9 @@ void zig_zag_coefficients(void) {
         printf("%d: %d\n", index_counter, working_index);
     }
 
+    working_index = right(working_index);
+    zig_zag_path[index_counter++] = working_index;
+    printf("%d: %d\n", index_counter, working_index);
 
 }
 
@@ -220,4 +218,13 @@ int down_left(int index) {
 
 int up_right(int index) {
     return index - 7;
+}
+
+void lap_loop(int laps, int * working_index, int * index_counter, int function(int)) {
+    for(int i = 0; i < laps; i++) {
+        *working_index = function(*working_index);
+        *index_counter = *index_counter + 1;
+        zig_zag_path[*index_counter] = *working_index;
+        printf("%d: %d\n", *index_counter, *working_index);
+    }
 }
