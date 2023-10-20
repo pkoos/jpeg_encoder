@@ -2,10 +2,10 @@
 #include <stdbool.h>
 #include "file_header.h"
 #include "file_footer.h"
+#include "jpeg_entropy_encoder.h"
 
-#define DEBUG true
+#define DEBUG false
 #define TEST_FILE_PATH "./files/profile_pic.jpg"
-
 
 int main(void) {
     FILE* jpeg_file;
@@ -31,6 +31,9 @@ int main(void) {
     if(DEBUG) {
         print_file_footer(file_footer);
     }
+
+    fill_coefficients();
+    print_coefficients();
 
     fclose(jpeg_file);
 }

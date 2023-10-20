@@ -2,8 +2,7 @@
 
 CC=gcc
 CFLAGS=-I.
-DEPS = file_header.h file_footer.h
-OBJ = file_header.o file_footer.o
+OBJ = file_header.o file_footer.o jpeg_entropy_encoder.o
 WFLAGS = -Wall -Wextra
 
 jpeg_encoder: jpeg_encoder.o $(OBJ)
