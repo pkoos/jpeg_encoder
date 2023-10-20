@@ -33,7 +33,9 @@ int main(void) {
     }
 
     fill_coefficients();
-    print_coefficients();
+    // print_coefficients();
+
+    zig_zag_coefficients();
 
     fclose(jpeg_file);
 }
