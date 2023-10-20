@@ -27,93 +27,25 @@ void zig_zag_coefficients(void) {
 
     int index_counter = 0;
     int working_index = 0;
-    int lap = 0;
-    int increment = 1;
 
-    // printf("lap: %d\n", lap);
     zig_zag_path[index_counter++] = working_index;
     printf("%d: %d\n", index_counter, working_index);
     
-    /*
-        Lap 1
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, right, down_left);
+    for(int i = 1;i < 8; i++) {
+        if (i % 2 == 1)
+            lap_loop(i, &working_index, &index_counter, right, down_left);
+        else
+            lap_loop(i, &working_index, &index_counter, down, up_right);
 
+    }
 
-    /*
-        Lap 2
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, down, up_right);
-
-    /*
-        Lap 3
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, right, down_left);
-
-    /*
-        Lap 4
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, down, up_right);
-
-    /*
-        Lap 5
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, right, down_left);
-
-    /*
-        Lap 6
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, down, up_right);
-
-    /*
-        Lap 7
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, right, down_left);
-
-    increment = -1;
-
-    /*
-        Lap 8
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, right, up_right);
-
-    /*
-        Lap 9
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, down, down_left);
-
-    /*
-        Lap 10
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, right, up_right);
-
-    /*
-        Lap 11
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, down, down_left);
-
-    /*
-        Lap 12
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, right, up_right);
-
-    /*
-        Lap 13
-    */
-    lap+= increment;
-    lap_loop(lap, &working_index, &index_counter, down, down_left);
+    for(int i = 6; i > 0; --i) {
+        if(i % 2 == 0) {
+            lap_loop(i, &working_index, &index_counter, right, up_right);
+        } else {
+            lap_loop(i, &working_index, &index_counter, down, down_left);
+        }
+    }
 
     working_index = right(working_index);
     zig_zag_path[index_counter++] = working_index;
